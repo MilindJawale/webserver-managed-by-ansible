@@ -1,0 +1,18 @@
+---
+ - hosts: all
+   gather_facts: yes
+   become: yes
+   vars:
+     content: "<h1> Hello world!! this is rana devops from {{inventory_hostname}}</h1>"
+   tasks:
+    - name: hosting website on RedHat
+      copy:
+        dest: /var/www/html/index.html
+        content: "{{content}}"
+      when: ansible_os_family=="RedHat"
+    - name: hosting website on Debian
+      copy:
+        dest: /var/www/html/index.html
+        content: "{{content}}"
+      when: ansible_os_family=="Debian"
+          

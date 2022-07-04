@@ -1,0 +1,20 @@
+---
+ - hosts: webserver
+   gather_facts: yes
+   become: yes
+   vars_prompt:
+     - name: x
+       prompt: Enter the name
+       private: no
+     - name: y
+       prompt: Enter the position
+       private: no
+   tasks:
+     - name: knowning the os 
+       debug:
+         msg: "{{ansible_os_family}}"
+     - copy:
+        dest: /home/rana/index.html
+        content: "{{x}} : {{y}}"
+
+

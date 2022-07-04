@@ -1,0 +1,33 @@
+---
+ - hosts: all
+   gather_facts: yes
+   become: yes
+   tasks:
+    - name: install webserver on RedHat
+      yum:
+        name: httpd
+        state: present
+      when: ansible_os_family=="RedHat"
+      notify: start httpd
+    - name: install webserver on debian
+      apt:
+        name: nginx
+        state: present
+      when: ansible_os_family=="Debian"
+      notify: start nginx
+   handlers:
+    - name: start nginx
+      service:
+        name: nginx
+        status: started
+        enabled: yes
+      when: ansible_os_family=="Debian"       
+      ignore_errors: yes     
+    - name: start httpd
+      service: 
+        name: httpd
+        state: started
+      when: ansible_os_family=="RedHat"
+
+
+

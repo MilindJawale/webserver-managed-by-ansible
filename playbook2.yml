@@ -1,0 +1,18 @@
+---
+ - hosts: webserver
+   gather_facts: yes
+   become: yes
+   vars_prompt:
+     - name: x
+       prompt: Enter the name
+       private: no
+     - name: y
+       prompt: Enter the position
+       private: no
+   tasks:
+     - debug:
+         msg: "{{ansible_os_family}}"
+   tasks:
+     - debug:
+         msg: "files"
+     
